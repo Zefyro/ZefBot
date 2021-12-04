@@ -5,6 +5,7 @@ using DSharpPlus.Exceptions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
+using ZefBot.Commands;
 using ZefBot.Commands.Moderation;
 
 namespace ZefBot
@@ -70,7 +71,8 @@ namespace ZefBot
             {
                 CaseSensitive = false,
                 StringPrefixes = Configuration.Prefixes,
-                IgnoreExtraArguments = true
+                IgnoreExtraArguments = true,
+                EnableDefaultHelp = true
             };
 
             //create and register command client
@@ -83,6 +85,7 @@ namespace ZefBot
         private static void RegisterAllCommands()
         {
             CommandsExtension.RegisterCommands<Ban>();
+            CommandsExtension.RegisterCommands<Kick>();
         }
     }
 }

@@ -10,23 +10,23 @@ using System.Threading.Tasks;
 
 namespace ZefBot.Commands.Moderation
 {
-    public class Ban : BaseCommandModule
+    public class Kick : BaseCommandModule
     {
-        [RequireUserPermissions(Permissions.BanMembers)]
-        [Command("ban")]
-        public async Task BanCommand(CommandContext ctx, DiscordMember user, [RemainingText] string reason)
+        [RequireUserPermissions(Permissions.KickMembers)]
+        [Command("kick")]
+        public async Task KickCommand(CommandContext ctx, DiscordMember user, [RemainingText] string reason)
         {
             if (reason == null)
                 reason = "No reason provided.";
 
             var embed = new DiscordEmbedBuilder
             {
-                Title = "Ban",
-                Description = user.Mention + " has been banned.\nReason: `" + reason + "`",
+                Title = "Kick",
+                Description = user.Mention + " has been kicked.\nReason: `" + reason + "`",
                 Color = DiscordColor.Blue
             };
 
-            await user.BanAsync().ConfigureAwait(false);
+            await user.RemoveAsync().ConfigureAwait(false);
 
             await ctx.Channel.SendMessageAsync(embed: embed).ConfigureAwait(false);
         }
